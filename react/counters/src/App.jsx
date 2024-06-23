@@ -47,12 +47,13 @@
 // 5. Pass this function to each MenuButton
 // 6. Make MenuButtons to run addFood onClick
 
+import { useState } from 'react';
 
-function CounterButton() {
+function CounterButton({increment, add}) {
 
   return (
-    <button className="btn " >
-                +
+    <button className="btn " onClick={() => {add(increment)}} >
+                +{increment}
     </button>
   )
 
@@ -75,17 +76,24 @@ function MenuButton({food}) {
 
 function App() {
 
-  let sum = 0;
+  const [ sum, setSum ] = useState(0);
+  
+  function addIncrement(num) {
 
+    // sum += num; we should not do this,
+    //    as we should not MUTATE the state
+    setSum(sum + num);
+
+  }
 
   return (
     <div className="App">
     <div className="first">
         
-        <CounterButton />
-        <CounterButton />
-        <CounterButton />
-        <CounterButton />
+        <CounterButton increment={1} add={addIncrement} />
+        <CounterButton increment={10} add={addIncrement} />
+        <CounterButton increment={100} add={addIncrement} />
+        <CounterButton increment={1000} add={addIncrement} />
         <span className="result">{sum}</span>
         <div>
           <MenuButton food="limonana" />

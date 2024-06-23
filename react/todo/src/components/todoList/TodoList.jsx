@@ -1,12 +1,26 @@
-import './TodoList.css';
+import "./TodoList.css";
+import TodoItem from "../todoItem/TodoItem";
 
-export default function TodoList() {
+export default function TodoList({ todos, importantColor }) {
+  const style = {
+    ul: {
+      listStyle: "none",
+      padding: "0",
+      fontSize: "2rem",
+      color: "black",
+    },
+  };
+
   return (
-    <ul>
-        <li>Run 10 km</li>
-        <li>Learn React for 7 hours</li>
-        <li>Wash Dishes</li>
-        <li>Buy Eggs</li>
+    <ul style={style.ul}>
+      {todos.map(({ id, text, important }) => (
+        <TodoItem
+          key={id}
+          text={text}
+          important={important}
+          importantColor={importantColor}
+        />
+      ))}
     </ul>
-  )
+  );
 }
