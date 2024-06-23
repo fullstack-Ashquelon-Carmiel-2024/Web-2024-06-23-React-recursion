@@ -7,12 +7,25 @@ function App() {
   const [appTitle, setAppTitle] = useState("Todo App");
 
   const color = "orange";
-  const todos = [
-    { id: 1, text: "Run 10 km", completed: false, important: false },
-    { id: 2, text: "React for 7 hours", completed: false, important: true },
-    { id: 3, text: "Wash Dishes", completed: false, important: false },
-    { id: 4, text: "Buy Eggs and Rice", completed: false, important: true },
-  ];
+  const [todos, setTodos] = useState([
+    { id: 1, text: "Run 10 km", completed: true, important: false },
+    { id: 22, text: "React for 7 hours", completed: false, important: true },
+    { id: 73, text: "Wash Dishes", completed: false, important: false },
+    { id: 1004, text: "Buy Eggs and Rice", completed: false, important: true },
+  ]);
+
+  const changeCompleted = (id) => {
+
+    const newTodos = todos.map(todo => {
+
+      if (todo.id === id) todo.completed = !todo.completed;
+      return todo;
+
+    })
+
+    setTodos(newTodos);
+
+  }
 
   console.log(`wrapperColor outside "changeColor" function is ${wrapperColor}`);
 
@@ -48,7 +61,8 @@ function App() {
       <div className="wrapper" style={{ background: wrapperColor }}>
         <button onClick={changeColor}>Change Color</button>
         <button onClick={changeTitle}>Change Title</button>
-        <TodoList importantColor={color} todos={todos} />
+        <TodoList importantColor={color} todos={todos}
+                  changeCompleted={changeCompleted} />
       </div>
     </div>
   );
